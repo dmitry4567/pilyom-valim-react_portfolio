@@ -52,16 +52,12 @@
 }
 
 .pv-tile {
-  break-inside: avoid;
-  margin: 0 0 14px;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   display: block;
   box-shadow: var(--shadow-sm);
-  cursor: pointer;
-  transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out);
-  -webkit-column-break-inside: avoid;
+  flex-shrink: 0;
 }
 .pv-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 .pv-tile img {

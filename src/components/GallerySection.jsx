@@ -81,10 +81,18 @@ function GalleryTile({ item, feedLayout }) {
   );
 }
 
+const COL_GAP = 14;
+const ROW_GAP = 14;
+
 export default function GallerySection({ feedLayout }) {
   const sentinelRef = useRef(null);
   const { feed, canLoadMore } = useGallery(sentinelRef);
-  const feedClass = feedLayout === 'grid' ? 'pv-feed-grid' : 'pv-feed';
+
+  const isGrid = feedLayout === 'grid';
+
+  // Разбиваем тайлы на 2 независимые колонки — они никогда не перебалансируются
+  const col0 = feed.filter((_, i) => i % 2 === 0);
+  const col1 = feed.filter((_, i) => i % 2 === 1);
 
   return (
     <section className="pv-wrap pv-pad" style={{ padding: 'clamp(48px,8vw,80px) 20px clamp(56px,9vw,96px)' }}>
@@ -99,11 +107,19 @@ export default function GallerySection({ feedLayout }) {
         Фото и видео с объектов — лента подгружается по мере прокрутки.
       </p>
 
-      <div className={feedClass}>
-        {feed.map(item => (
-          <GalleryTile key={item.id} item={item} feedLayout={feedLayout} />
-        ))}
-      </div>
+      {isGrid ? (
+        <div className="pv-feed-grid">
+          {feed.map(item => <GalleryTile key={item.id} item={item} feedLayout="grid" />)}
+        </div>
+      ) : (
+        <div style={{ display: 'flex', gap: COL_GAP }}>
+          {[col0, col1].map((col, ci) => (
+            <div key={ci} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: ROW_GAP }}>
+              {col.map(item => <GalleryTile key={item.id} item={item} feedLayout="mosaic" />)}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div ref={sentinelRef} style={{ height: 1 }} />
 
