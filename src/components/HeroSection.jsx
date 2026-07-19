@@ -71,20 +71,16 @@ const overlays = {
 };
 
 
-export default function HeroSection({ heroVariant, mood, energy, leafCount, fallingLeaves, videoUrl, onHeroClick, onFile, fileRef }) {
+export default function HeroSection({ heroVariant, mood, energy, leafCount, fallingLeaves }) {
   const leavesRef = useRef(null);
   const videoRef = useRef(null);
 
-  // Пользовательское видео из IndexedDB имеет приоритет, иначе — дефолтное
-  const activeSrc = videoUrl || DEFAULT_VIDEO;
-
   useLeaves(leavesRef, { fallingLeaves, leafCount, energy, mood });
-  useVideoStream(videoRef, activeSrc);
+  useVideoStream(videoRef, DEFAULT_VIDEO);
 
   return (
     <section
       style={{ position: 'relative', minHeight: '100svh', display: 'flex', background: '#0c1a10', overflow: 'hidden' }}
-      onClick={onHeroClick}
     >
       <canvas ref={leavesRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />
 
@@ -125,7 +121,6 @@ export default function HeroSection({ heroVariant, mood, energy, leafCount, fall
         </div>
       )}
 
-      <input ref={fileRef} type="file" accept="video/*" onChange={onFile} data-no-hero-click="" style={{ display: 'none' }} />
     </section>
   );
 }

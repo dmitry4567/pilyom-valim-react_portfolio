@@ -133,18 +133,9 @@ export default function App() {
         energy={energy}
         leafCount={26}
         fallingLeaves={true}
-        videoUrl={videoUrl}
-        onHeroClick={onHeroClick}
-        onFile={onFile}
-        fileRef={fileRef}
       />
       <AboutSection />
-      <ServicesSection
-        serviceMedia={serviceMedia}
-        serviceFileRef={serviceFileRef}
-        onServiceFile={onServiceFile}
-        openServicePicker={openServicePicker}
-      />
+      <ServicesSection />
       <GallerySection feedLayout={feedLayout} />
       <Footer />
 

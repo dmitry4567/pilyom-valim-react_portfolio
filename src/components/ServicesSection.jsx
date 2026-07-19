@@ -52,7 +52,7 @@ function StreamingVideo({ src, style }) {
   return <video ref={ref} muted loop playsInline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect fill='%230c1a10' width='1' height='1'/%3E%3C/svg%3E" style={style} onError={(e) => { if (!clearingRef.current) e.target.style.display = 'none'; }} />;
 }
 
-function ServiceCard({ svc, media, onAdd, onError }) {
+function ServiceCard({ svc, media }) {
   const effectiveMedia = media || (svc.defaultVideo ? { kind: 'video', url: svc.defaultVideo } : null);
   const hasMedia = !!effectiveMedia;
   const isVideo = hasMedia && effectiveMedia.kind === 'video';
@@ -60,7 +60,7 @@ function ServiceCard({ svc, media, onAdd, onError }) {
 
   return (
     <div style={{ background: 'var(--surface-card)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-sm)', transition: 'transform var(--dur-med) var(--ease-spring), box-shadow var(--dur-med) var(--ease-out)' }}>
-      <div onClick={onAdd} style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: 'linear-gradient(135deg,var(--green-50),var(--border-subtle))', cursor: 'pointer' }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: 'linear-gradient(135deg,var(--green-50),var(--border-subtle))' }}>
         {isVideo && (
           <StreamingVideo src={effectiveMedia.url} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         )}
@@ -85,10 +85,9 @@ function ServiceCard({ svc, media, onAdd, onError }) {
   );
 }
 
-export default function ServicesSection({ serviceMedia, serviceFileRef, onServiceFile, openServicePicker }) {
+export default function ServicesSection() {
   return (
     <section style={{ background: 'var(--surface-sunken)' }}>
-      <input ref={serviceFileRef} type="file" accept="image/*,video/*" onChange={onServiceFile} style={{ display: 'none' }} />
       <div className="pv-wrap pv-pad" style={{ padding: 'clamp(48px,8vw,80px) 20px' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, font: '700 12px/1 var(--font-body)', letterSpacing: 'var(--ls-caps)', textTransform: 'uppercase', color: 'var(--green-600)' }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--green-500)', boxShadow: 'var(--glow-md)' }} />
@@ -99,13 +98,7 @@ export default function ServicesSection({ serviceMedia, serviceFileRef, onServic
         </h2>
         <div className="pv-services" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16, marginTop: 26 }}>
           {SERVICES.map(svc => (
-            <ServiceCard
-              key={svc.key}
-              svc={svc}
-              media={serviceMedia[svc.key]}
-              onAdd={() => openServicePicker(svc.key)}
-              onError={() => {}}
-            />
+            <ServiceCard key={svc.key} svc={svc} media={null} />
           ))}
         </div>
       </div>
