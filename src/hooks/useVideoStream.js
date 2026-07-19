@@ -1,8 +1,9 @@
 import { useRef, useEffect } from 'react';
 
-export function useVideoStream(videoRef, src, { rootMargin = '400px' } = {}) {
+export function useVideoStream(videoRef, src, { rootMargin = '400px', autoPlay = true } = {}) {
   const savedTimeRef = useRef(0);
   const clearingRef = useRef(false);
+  const userPlayRef = useRef(autoPlay);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -16,7 +17,9 @@ export function useVideoStream(videoRef, src, { rootMargin = '400px' } = {}) {
           video.load();
           video.addEventListener('loadedmetadata', () => {
             video.currentTime = savedTimeRef.current;
-            video.play().catch(() => {});
+            if (userPlayRef.current) {
+              video.play().catch(() => {});
+            }
           }, { once: true });
         } else {
           savedTimeRef.current = video.currentTime;
@@ -33,5 +36,5 @@ export function useVideoStream(videoRef, src, { rootMargin = '400px' } = {}) {
     return () => observer.disconnect();
   }, [videoRef, src, rootMargin]);
 
-  return clearingRef;
+  return { clearingRef, userPlayRef };
 }

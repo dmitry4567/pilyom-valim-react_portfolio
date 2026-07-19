@@ -48,7 +48,7 @@ const SERVICES = [
 
 function StreamingVideo({ src, style }) {
   const ref = useRef(null);
-  const clearingRef = useVideoStream(ref, src);
+  const { clearingRef } = useVideoStream(ref, src);
   return <video ref={ref} muted loop playsInline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect fill='%230c1a10' width='1' height='1'/%3E%3C/svg%3E" style={style} onError={(e) => { if (!clearingRef.current) e.target.style.display = 'none'; }} />;
 }
 

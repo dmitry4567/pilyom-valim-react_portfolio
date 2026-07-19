@@ -145,15 +145,7 @@ export default function App() {
         onServiceFile={onServiceFile}
         openServicePicker={openServicePicker}
       />
-      <GallerySection
-        tileMedia={tileMedia}
-        tileFileRef={tileFileRef}
-        onTileFile={onTileFile}
-        openTilePicker={openTilePicker}
-        feedLayout={feedLayout}
-        showTileLabel={false}
-        showTileAddButton={false}
-      />
+      <GallerySection feedLayout={feedLayout} />
       <Footer />
 
       {showTop && (
