@@ -1,0 +1,127 @@
+/* ============================================================
+   Пилим Валим — Component utility classes
+   ============================================================ */
+
+.pv-wrap {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.pv-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font: 700 15px/1 var(--font-body);
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0,0,0,.28);
+  transition: transform .24s var(--ease-spring), background .24s var(--ease-out), box-shadow .24s var(--ease-out), border-color .24s var(--ease-out);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pv-cta:hover {
+  background: rgba(255,255,255,.18);
+  box-shadow: var(--glow-lg);
+  transform: translateY(-2px);
+  border-color: var(--glow-green-soft);
+  color: #fff;
+}
+.pv-cta:active { transform: scale(.96); }
+.pv-cta svg { flex: none; }
+
+.pv-cta--primary {
+  background: var(--color-primary);
+  border-color: transparent;
+  box-shadow: var(--glow-md);
+  animation: pv-glow-pulse var(--pulse-dur, 2.4s) var(--ease-in-out) infinite;
+  animation-play-state: var(--pulse-play, running);
+}
+.pv-cta--primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--glow-lg);
+}
+
+.pv-tile {
+  break-inside: avoid;
+  margin: 0 0 14px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out);
+  -webkit-column-break-inside: avoid;
+}
+.pv-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.pv-tile img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ease-out);
+}
+.pv-tile:hover img { transform: scale(var(--tile-hover-scale, 1.05)); }
+.pv-tile:hover { transform: translateY(var(--tile-hover-lift, -3px)) rotate(var(--tile-hover-rot, 0deg)); }
+
+.pv-feed {
+  column-count: 2;
+  column-gap: 14px;
+}
+.pv-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.pv-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--glow-md);
+  transition: transform .24s var(--ease-spring), box-shadow .24s var(--ease-out), opacity .3s var(--ease-out);
+}
+.pv-top:hover { box-shadow: var(--glow-lg); transform: translateY(-3px); }
+.pv-top:active { transform: scale(.94); }
+
+@keyframes pv-spin { to { transform: rotate(360deg); } }
+
+@media (min-width: 760px) {
+  .pv-pad { padding-left: 48px !important; padding-right: 48px !important; }
+  .pv-about { flex-direction: row !important; align-items: flex-start !important; gap: 48px !important; }
+  .pv-about-h { flex: 0 0 40% !important; }
+  .pv-about-p { flex: 1 !important; }
+  .pv-services { grid-template-columns: 1fr 1fr !important; }
+  .pv-feed { column-count: 3 !important; }
+  .pv-split-outer { justify-content: flex-start !important; }
+  .pv-feed-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
+@media (min-width: 1200px) {
+  .pv-feed { column-count: 4 !important; }
+  .pv-feed-grid { grid-template-columns: repeat(4, 1fr) !important; }
+}
+
+@media (max-width: 430px) {
+  .pv-hide-sm { display: none !important; }
+}
